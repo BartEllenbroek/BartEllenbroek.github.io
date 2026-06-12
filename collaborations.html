@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Collaborations — NEST · Ellenbroek &amp; Youn Research Group</title>
+<meta name="description" content="The colleagues, labs and institutions NEST collaborates with, in New Zealand and around the world." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="index.html">NEST</a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="collaborations.html">Collaborations</a></li>
+        <li><a href="index.html#publications">Publications</a></li>
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= PAGE HEAD ================= -->
+  <section class="wrap pagehead">
+    <p class="eyebrow">Beyond the nest</p>
+    <h1>Collaborations</h1>
+    <p>The brain is too complex to understand alone. Much of our work is done hand-in-hand with colleagues and labs elsewhere — here is who we build with.</p>
+  </section>
+
+  <!-- ================= MAP ================= -->
+  <section class="section" style="border-top:none; padding-top:0;">
+    <div class="wrap">
+      <div class="collab__map" style="max-width:760px;">
+        <!-- Move/add the coloured dots below to roughly match your collaborators' locations.
+             viewBox is 360 wide × 180 tall: x grows eastward, y grows southward. -->
+        <svg viewBox="0 0 360 180" role="img" aria-label="Stylised world map showing collaborator locations">
+          <rect width="360" height="180" fill="none"/>
+          <g fill="none" stroke="#b7ab90" stroke-width="0.8" opacity="0.7">
+            <path d="M40,55 Q55,40 80,45 Q95,60 85,80 Q70,95 55,85 Q38,75 40,55 Z"/>
+            <path d="M70,95 Q85,100 88,120 Q80,150 70,150 Q62,130 65,110 Z"/>
+            <path d="M150,45 Q170,38 185,48 Q190,60 180,68 Q165,72 155,62 Z"/>
+            <path d="M165,72 Q178,80 175,110 Q168,140 160,150 Q150,120 155,90 Z"/>
+            <path d="M195,50 Q235,40 285,55 Q300,75 280,90 Q235,80 205,72 Q190,62 195,50 Z"/>
+            <path d="M290,120 Q310,112 322,125 Q318,140 300,140 Q288,132 290,120 Z"/>
+          </g>
+          <!-- Wellington home base -->
+          <circle cx="318" cy="150" r="4" fill="#8a3b2e"/>
+          <circle cx="318" cy="150" r="8" fill="none" stroke="#8a3b2e" stroke-width="1" opacity="0.5"/>
+          <!-- placeholder collaborator dots -->
+          <circle cx="165" cy="55" r="2.6" fill="#3f4a3a"/>
+          <circle cx="250" cy="62" r="2.6" fill="#3f4a3a"/>
+          <circle cx="70" cy="60" r="2.6" fill="#3f4a3a"/>
+          <circle cx="300" cy="128" r="2.6" fill="#3f4a3a"/>
+        </svg>
+      </div>
+      <p class="collab__note" style="text-align:left; max-width:760px;">● Wellington — home &nbsp;·&nbsp; ● collaborators (placeholders)</p>
+
+      <!-- ================= DIRECTORY =================
+           Grouped by region. Copy an <li> to add a collaborator.
+           Keep the <strong> for the name/lab and the <span> for the
+           institution and place. Delete groups you don't need. -->
+
+      <div class="collab-group">
+        <h2>Aotearoa New Zealand</h2>
+        <ul>
+          <li><strong>Add a collaborator or lab</strong><span>Institution — City</span></li>
+          <li><strong>Name of collaborator</strong><span>Institution — City</span></li>
+        </ul>
+      </div>
+
+      <div class="collab-group">
+        <h2>Australia &amp; the Pacific</h2>
+        <ul>
+          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+        </ul>
+      </div>
+
+      <div class="collab-group">
+        <h2>Europe</h2>
+        <ul>
+          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+        </ul>
+      </div>
+
+      <div class="collab-group">
+        <h2>Americas, Asia &amp; elsewhere</h2>
+        <ul>
+          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap footer__inner">
+    <div>
+      <div class="footer__brand">NEST</div>
+      <p class="footer__meta">Ellenbroek &amp; Youn Research Group<br/>School of Psychological Sciences</p>
+    </div>
+    <p class="footer__meta">
+      Te Herenga Waka—Victoria University of Wellington<br/>
+      Wellington · Aotearoa New Zealand<br/>
+      <a href="https://scholar.google.co.nz/citations?user=BgnnjqAAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> ·
+      <a href="https://www.wgtn.ac.nz/psyc" target="_blank" rel="noopener">VUW Psychology</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
