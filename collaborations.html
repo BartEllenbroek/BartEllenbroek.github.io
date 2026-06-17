@@ -10,6 +10,142 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+  /* ── Map container ── */
+  #collab-map {
+    width: 100%;
+    height: 480px;
+    border-radius: 6px;
+    border: 1px solid var(--rule, #d8d0c0);
+    margin-block: 2rem;
+    z-index: 0;
+  }
+
+  /* ── Custom home marker ── */
+  .home-icon {
+    background: #8a3b2e;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #8a3b2e55;
+  }
+
+  /* ── Custom collaborator marker ── */
+  .collab-icon {
+    background: #3f4a3a;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+  }
+
+  /* ── Leaflet popup tweaks to match site font ── */
+  .leaflet-popup-content-wrapper {
+    font-family: 'Hanken Grotesk', sans-serif;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 0;
+  }
+  .leaflet-popup-content {
+    margin: 0;
+    padding: 0;
+  }
+  .map-popup {
+    padding: 0.85rem 1.1rem;
+    min-width: 180px;
+  }
+  .map-popup strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1612;
+    margin-bottom: 0.2rem;
+  }
+  .map-popup span {
+    font-size: 0.82rem;
+    color: #5a5040;
+  }
+  .map-popup .home-label {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #8a3b2e;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .leaflet-popup-tip {
+    background: #fff;
+  }
+
+  /* ── Map legend ── */
+  .map-legend {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft, #5a5040);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+    margin-top: -0.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .map-legend span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .map-legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1.5px currentColor;
+  }
+  .map-legend .dot--home  { background: #8a3b2e; box-shadow: 0 0 0 1.5px #8a3b2e; }
+  .map-legend .dot--collab { background: #3f4a3a; box-shadow: 0 0 0 1.5px #3f4a3a; }
+
+  /* ── Directory list tweaks ── */
+  .collab-group {
+    margin-bottom: 2.5rem;
+  }
+  .collab-group h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft, #5a5040);
+    border-bottom: 1px solid var(--rule, #d8d0c0);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .collab-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .collab-group li {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .collab-group li strong {
+    font-weight: 600;
+    color: var(--ink, #1a1612);
+  }
+  .collab-group li span {
+    color: var(--ink-soft, #5a5040);
+    font-size: 0.88rem;
+  }
+</style>
 </head>
 <body>
 
@@ -41,63 +177,56 @@
   <!-- ================= MAP ================= -->
   <section class="section" style="border-top:none; padding-top:0;">
     <div class="wrap">
-      <div class="collab__map" style="max-width:760px;">
-        <!-- Move/add the coloured dots below to roughly match your collaborators' locations.
-             viewBox is 360 wide × 180 tall: x grows eastward, y grows southward. -->
-        <svg viewBox="0 0 360 180" role="img" aria-label="Stylised world map showing collaborator locations">
-          <rect width="360" height="180" fill="none"/>
-          <g fill="none" stroke="#b7ab90" stroke-width="0.8" opacity="0.7">
-            <path d="M40,55 Q55,40 80,45 Q95,60 85,80 Q70,95 55,85 Q38,75 40,55 Z"/>
-            <path d="M70,95 Q85,100 88,120 Q80,150 70,150 Q62,130 65,110 Z"/>
-            <path d="M150,45 Q170,38 185,48 Q190,60 180,68 Q165,72 155,62 Z"/>
-            <path d="M165,72 Q178,80 175,110 Q168,140 160,150 Q150,120 155,90 Z"/>
-            <path d="M195,50 Q235,40 285,55 Q300,75 280,90 Q235,80 205,72 Q190,62 195,50 Z"/>
-            <path d="M290,120 Q310,112 322,125 Q318,140 300,140 Q288,132 290,120 Z"/>
-          </g>
-          <!-- Wellington home base -->
-          <circle cx="318" cy="150" r="4" fill="#8a3b2e"/>
-          <circle cx="318" cy="150" r="8" fill="none" stroke="#8a3b2e" stroke-width="1" opacity="0.5"/>
-          <!-- placeholder collaborator dots -->
-          <circle cx="165" cy="55" r="2.6" fill="#3f4a3a"/>
-          <circle cx="250" cy="62" r="2.6" fill="#3f4a3a"/>
-          <circle cx="70" cy="60" r="2.6" fill="#3f4a3a"/>
-          <circle cx="300" cy="128" r="2.6" fill="#3f4a3a"/>
-        </svg>
-      </div>
-      <p class="collab__note" style="text-align:left; max-width:760px;">● Wellington — home &nbsp;·&nbsp; ● collaborators (placeholders)</p>
 
-      <!-- ================= DIRECTORY =================
-           Grouped by region. Copy an <li> to add a collaborator.
-           Keep the <strong> for the name/lab and the <span> for the
-           institution and place. Delete groups you don't need. -->
+      <div id="collab-map" aria-label="Interactive world map showing NEST collaborator locations"></div>
+
+      <div class="map-legend">
+        <span><span class="dot dot--home"></span> Wellington — home base</span>
+        <span><span class="dot dot--collab"></span> Collaborator</span>
+      </div>
+
+      <!-- ================= DIRECTORY ================= -->
 
       <div class="collab-group">
         <h2>Aotearoa New Zealand</h2>
         <ul>
-          <li><strong>Add a collaborator or lab</strong><span>Institution — City</span></li>
-          <li><strong>Name of collaborator</strong><span>Institution — City</span></li>
+          <li><strong>Dr Penny Truman</strong><span>Massey University — Wellington</span></li>
+          <li><strong>Prof Paul Teesdale-Spittle</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Rob Keyzers</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Darren Day</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Lifeng Peng</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Burt Hatch</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Kate Witt</strong><span>Victoria University of Wellington</span></li>
+          <li><strong>Dr Anne Macaskill</strong><span>Victoria University of Wellington</span></li>
         </ul>
       </div>
 
       <div class="collab-group">
-        <h2>Australia &amp; the Pacific</h2>
+        <h2>Australia</h2>
         <ul>
-          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+          <li><strong>Dr Bryony Thorne</strong><span>University of Tasmania — Hobart</span></li>
+          <li><strong>Dr Diana Atigari</strong><span>University of Sydney</span></li>
+          <li><strong>Prof Don Wlodkowic</strong><span>RMIT — Melbourne</span></li>
+          <li><strong>Prof Andrew Barron</strong><span>Macquarie University — Sydney</span></li>
         </ul>
       </div>
 
       <div class="collab-group">
         <h2>Europe</h2>
         <ul>
-          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
-          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+          <li><strong>Prof Aleksander Mathe</strong><span>Karolinska Institute — Stockholm, Sweden</span></li>
+          <li><strong>Prof Iris Sommer</strong><span>University of Groningen — Groningen, the Netherlands</span></li>
+          <li><strong>Dr Cyprien Guerrin</strong><span>Radboud University — Nijmegen, the Netherlands</span></li>
+          <li><strong>Dr Heidi Lesscher</strong><span>Utrecht University — Utrecht, the Netherlands</span></li>
+          <li><strong>Dr Sahir Hussain</strong><span>Lancaster University — Lancaster, United Kingdom</span></li>
         </ul>
       </div>
 
       <div class="collab-group">
-        <h2>Americas, Asia &amp; elsewhere</h2>
+        <h2>Asia</h2>
         <ul>
-          <li><strong>Name of collaborator</strong><span>Institution — City, Country</span></li>
+          <li><strong>Prof Weiwen Wang</strong><span>Chinese Academy of Science — Beijing, China</span></li>
+          <li><strong>Prof Tomoaki Shirao</strong><span>Gunma University — Maebashi, Japan</span></li>
         </ul>
       </div>
 
@@ -115,11 +244,98 @@
     <p class="footer__meta">
       Te Herenga Waka—Victoria University of Wellington<br/>
       Wellington · Aotearoa New Zealand<br/>
-      <a href="https://scholar.google.co.nz/citations?user=BgnnjqAAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> ·
+      <a href="https://scholar.google.co.nz/citations?user=BgnnjqAAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> ·
       <a href="https://www.wgtn.ac.nz/psyc" target="_blank" rel="noopener">VUW Psychology</a>
     </p>
   </div>
 </footer>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+
+  /* ── Collaborator data ── */
+  var collaborators = [
+    // New Zealand
+    { name: 'Dr Penny Truman',            inst: 'Massey University',                   lat: -41.286,  lng: 174.776 },
+    { name: 'Prof Paul Teesdale-Spittle', inst: 'Victoria University of Wellington',   lat: -41.290,  lng: 174.768 },
+    { name: 'Dr Rob Keyzers',             inst: 'Victoria University of Wellington',   lat: -41.292,  lng: 174.770 },
+    { name: 'Dr Darren Day',              inst: 'Victoria University of Wellington',   lat: -41.294,  lng: 174.772 },
+    { name: 'Dr Lifeng Peng',             inst: 'Victoria University of Wellington',   lat: -41.296,  lng: 174.774 },
+    { name: 'Dr Burt Hatch',              inst: 'Victoria University of Wellington',   lat: -41.298,  lng: 174.776 },
+    { name: 'Dr Kate Witt',               inst: 'Victoria University of Wellington',   lat: -41.300,  lng: 174.770 },
+    { name: 'Dr Anne Macaskill',          inst: 'Victoria University of Wellington',   lat: -41.302,  lng: 174.768 },
+    // Australia
+    { name: 'Dr Bryony Thorne',           inst: 'University of Tasmania',              lat: -42.880,  lng: 147.325 },
+    { name: 'Dr Diana Atigari',           inst: 'University of Sydney',               lat: -33.888,  lng: 151.187 },
+    { name: 'Prof Don Wlodkowic',         inst: 'RMIT University',                    lat: -37.810,  lng: 144.962 },
+    { name: 'Prof Andrew Barron',         inst: 'Macquarie University',               lat: -33.774,  lng: 151.113 },
+    // Europe
+    { name: 'Prof Aleksander Mathe',      inst: 'Karolinska Institute',               lat: 59.350,   lng: 18.025 },
+    { name: 'Prof Iris Sommer',           inst: 'University of Groningen',            lat: 53.220,   lng: 6.568 },
+    { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                 lat: 51.820,   lng: 5.864 },
+    { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                 lat: 52.090,   lng: 5.121 },
+    { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',               lat: 54.010,   lng: -2.788 },
+    // Asia
+    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',         lat: 39.960,   lng: 116.330 },
+    { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                   lat: 36.391,   lng: 139.071 },
+  ];
+
+  /* ── Initialise map, centred to show the world ── */
+  var map = L.map('collab-map', {
+    center: [20, 20],
+    zoom: 2,
+    minZoom: 2,
+    maxZoom: 10,
+    scrollWheelZoom: false,   // prevent accidental scroll-zoom
+    worldCopyJump: true
+  });
+
+  /* ── Tile layer: CartoDB Voyager — clean, no API key required ── */
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+  }).addTo(map);
+
+  /* ── Custom icon factory ── */
+  function makeIcon(cls) {
+    return L.divIcon({
+      className: cls,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+      popupAnchor: [0, -10]
+    });
+  }
+
+  /* ── Home marker: Wellington ── */
+  L.marker([-41.286, 174.776], { icon: makeIcon('home-icon') })
+    .addTo(map)
+    .bindPopup(
+      '<div class="map-popup">' +
+        '<strong>NEST — Ellenbroek &amp; Youn Group</strong>' +
+        '<span>Victoria University of Wellington</span>' +
+        '<span class="home-label">Home base</span>' +
+      '</div>',
+      { maxWidth: 240 }
+    );
+
+  /* ── Collaborator markers ── */
+  collaborators.forEach(function (c) {
+    L.marker([c.lat, c.lng], { icon: makeIcon('collab-icon') })
+      .addTo(map)
+      .bindPopup(
+        '<div class="map-popup">' +
+          '<strong>' + c.name + '</strong>' +
+          '<span>' + c.inst + '</span>' +
+        '</div>',
+        { maxWidth: 240 }
+      );
+  });
+
+})();
+</script>
 
 </body>
 </html>
