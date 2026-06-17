@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
-  /* ── Map container ── */
   #collab-map {
     width: 100%;
     height: 480px;
@@ -25,7 +24,6 @@
     z-index: 0;
   }
 
-  /* ── Custom home marker ── */
   .home-icon {
     background: #8a3b2e;
     border: 2px solid #fff;
@@ -33,26 +31,20 @@
     box-shadow: 0 0 0 3px #8a3b2e55;
   }
 
-  /* ── Custom collaborator marker ── */
   .collab-icon {
     background: #3f4a3a;
     border: 2px solid #fff;
     border-radius: 50%;
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    transition: transform 0.15s;
   }
 
-  /* ── Leaflet popup tweaks to match site font ── */
   .leaflet-popup-content-wrapper {
     font-family: 'Hanken Grotesk', sans-serif;
     border-radius: 6px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     padding: 0;
   }
-  .leaflet-popup-content {
-    margin: 0;
-    padding: 0;
-  }
+  .leaflet-popup-content { margin: 0; padding: 0; }
   .map-popup {
     padding: 0.85rem 1.1rem;
     min-width: 180px;
@@ -64,10 +56,7 @@
     color: #1a1612;
     margin-bottom: 0.2rem;
   }
-  .map-popup span {
-    font-size: 0.82rem;
-    color: #5a5040;
-  }
+  .map-popup span { font-size: 0.82rem; color: #5a5040; }
   .map-popup .home-label {
     display: inline-block;
     margin-top: 0.35rem;
@@ -77,11 +66,7 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .leaflet-popup-tip {
-    background: #fff;
-  }
 
-  /* ── Map legend ── */
   .map-legend {
     display: flex;
     gap: 1.5rem;
@@ -92,26 +77,16 @@
     margin-top: -0.5rem;
     margin-bottom: 2.5rem;
   }
-  .map-legend span {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
+  .map-legend span { display: flex; align-items: center; gap: 0.4rem; }
   .map-legend .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+    width: 10px; height: 10px;
+    border-radius: 50%; flex-shrink: 0;
     border: 2px solid #fff;
-    box-shadow: 0 0 0 1.5px currentColor;
   }
   .map-legend .dot--home  { background: #8a3b2e; box-shadow: 0 0 0 1.5px #8a3b2e; }
   .map-legend .dot--collab { background: #3f4a3a; box-shadow: 0 0 0 1.5px #3f4a3a; }
 
-  /* ── Directory list tweaks ── */
-  .collab-group {
-    margin-bottom: 2.5rem;
-  }
+  .collab-group { margin-bottom: 2.5rem; }
   .collab-group h2 {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.78rem;
@@ -122,29 +97,14 @@
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
   }
-  .collab-group ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.6rem;
-  }
+  .collab-group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
   .collab-group li {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 0.6rem;
-    align-items: baseline;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    display: flex; flex-wrap: wrap;
+    column-gap: 0.6rem; align-items: baseline;
+    font-size: 0.95rem; line-height: 1.5;
   }
-  .collab-group li strong {
-    font-weight: 600;
-    color: var(--ink, #1a1612);
-  }
-  .collab-group li span {
-    color: var(--ink-soft, #5a5040);
-    font-size: 0.88rem;
-  }
+  .collab-group li strong { font-weight: 600; color: var(--ink, #1a1612); }
+  .collab-group li span { color: var(--ink-soft, #5a5040); font-size: 0.88rem; }
 </style>
 </head>
 <body>
@@ -219,10 +179,10 @@
         <h2>Europe</h2>
         <ul>
           <li><strong>Prof Aleksander Mathe</strong><span>Karolinska Institute — Stockholm, Sweden</span></li>
-          <li><strong>Prof Iris Sommer</strong><span>University of Groningen — Groningen, the Netherlands</span></li>
+          <li><strong>Prof Iris Sommer</strong><span>University of Groningen — the Netherlands</span></li>
           <li><strong>Dr Cyprien Guerrin</strong><span>Radboud University — Nijmegen, the Netherlands</span></li>
-          <li><strong>Dr Heidi Lesscher</strong><span>Utrecht University — Utrecht, the Netherlands</span></li>
-          <li><strong>Dr Sahir Hussain</strong><span>Lancaster University — Lancaster, United Kingdom</span></li>
+          <li><strong>Dr Heidi Lesscher</strong><span>Utrecht University — the Netherlands</span></li>
+          <li><strong>Dr Sahir Hussain</strong><span>Lancaster University — United Kingdom</span></li>
         </ul>
       </div>
 
@@ -258,86 +218,62 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function () {
-
-  /* ── Collaborator data ── */
   var collaborators = [
     // New Zealand
-    { name: 'Dr Penny Truman',            inst: 'Massey University',                   lat: -41.286,  lng: 174.776 },
-    { name: 'Prof Paul Teesdale-Spittle', inst: 'Victoria University of Wellington',   lat: -41.290,  lng: 174.768 },
-    { name: 'Dr Rob Keyzers',             inst: 'Victoria University of Wellington',   lat: -41.292,  lng: 174.770 },
-    { name: 'Dr Darren Day',              inst: 'Victoria University of Wellington',   lat: -41.294,  lng: 174.772 },
-    { name: 'Dr Lifeng Peng',             inst: 'Victoria University of Wellington',   lat: -41.296,  lng: 174.774 },
-    { name: 'Dr Burt Hatch',              inst: 'Victoria University of Wellington',   lat: -41.298,  lng: 174.776 },
-    { name: 'Dr Kate Witt',               inst: 'Victoria University of Wellington',   lat: -41.300,  lng: 174.770 },
-    { name: 'Dr Anne Macaskill',          inst: 'Victoria University of Wellington',   lat: -41.302,  lng: 174.768 },
+    { name: 'Dr Penny Truman',            inst: 'Massey University',                 lat: -41.290,  lng: 174.779 },
+    { name: 'Prof Paul Teesdale-Spittle', inst: 'Victoria University of Wellington', lat: -41.292,  lng: 174.768 },
+    { name: 'Dr Rob Keyzers',             inst: 'Victoria University of Wellington', lat: -41.294,  lng: 174.770 },
+    { name: 'Dr Darren Day',              inst: 'Victoria University of Wellington', lat: -41.296,  lng: 174.772 },
+    { name: 'Dr Lifeng Peng',             inst: 'Victoria University of Wellington', lat: -41.298,  lng: 174.774 },
+    { name: 'Dr Burt Hatch',              inst: 'Victoria University of Wellington', lat: -41.300,  lng: 174.776 },
+    { name: 'Dr Kate Witt',               inst: 'Victoria University of Wellington', lat: -41.302,  lng: 174.770 },
+    { name: 'Dr Anne Macaskill',          inst: 'Victoria University of Wellington', lat: -41.304,  lng: 174.768 },
     // Australia
-    { name: 'Dr Bryony Thorne',           inst: 'University of Tasmania',              lat: -42.880,  lng: 147.325 },
-    { name: 'Dr Diana Atigari',           inst: 'University of Sydney',               lat: -33.888,  lng: 151.187 },
-    { name: 'Prof Don Wlodkowic',         inst: 'RMIT University',                    lat: -37.810,  lng: 144.962 },
-    { name: 'Prof Andrew Barron',         inst: 'Macquarie University',               lat: -33.774,  lng: 151.113 },
+    { name: 'Dr Bryony Thorne',           inst: 'University of Tasmania',            lat: -42.880,  lng: 147.325 },
+    { name: 'Dr Diana Atigari',           inst: 'University of Sydney',              lat: -33.888,  lng: 151.187 },
+    { name: 'Prof Don Wlodkowic',         inst: 'RMIT University',                   lat: -37.810,  lng: 144.962 },
+    { name: 'Prof Andrew Barron',         inst: 'Macquarie University',              lat: -33.774,  lng: 151.113 },
     // Europe
-    { name: 'Prof Aleksander Mathe',      inst: 'Karolinska Institute',               lat: 59.350,   lng: 18.025 },
-    { name: 'Prof Iris Sommer',           inst: 'University of Groningen',            lat: 53.220,   lng: 6.568 },
-    { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                 lat: 51.820,   lng: 5.864 },
-    { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                 lat: 52.090,   lng: 5.121 },
-    { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',               lat: 54.010,   lng: -2.788 },
+    { name: 'Prof Aleksander Mathe',      inst: 'Karolinska Institute',              lat: 59.350,   lng: 18.025 },
+    { name: 'Prof Iris Sommer',           inst: 'University of Groningen',           lat: 53.220,   lng: 6.568 },
+    { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                lat: 51.820,   lng: 5.864 },
+    { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                lat: 52.090,   lng: 5.121 },
+    { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',              lat: 54.010,   lng: -2.788 },
     // Asia
-    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',         lat: 39.960,   lng: 116.330 },
-    { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                   lat: 36.391,   lng: 139.071 },
+    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',        lat: 39.960,   lng: 116.330 },
+    { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                  lat: 36.391,   lng: 139.071 },
   ];
 
-  /* ── Initialise map, centred to show the world ── */
   var map = L.map('collab-map', {
-    center: [20, 20],
+    center: [25, 20],
     zoom: 2,
     minZoom: 2,
     maxZoom: 10,
-    scrollWheelZoom: false,   // prevent accidental scroll-zoom
+    scrollWheelZoom: false,
     worldCopyJump: true
   });
 
-  /* ── Tile layer: CartoDB Voyager — clean, no API key required ── */
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
   }).addTo(map);
 
-  /* ── Custom icon factory ── */
   function makeIcon(cls) {
-    return L.divIcon({
-      className: cls,
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
-      popupAnchor: [0, -10]
-    });
+    return L.divIcon({ className: cls, iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -10] });
   }
 
-  /* ── Home marker: Wellington ── */
+  // Home marker
   L.marker([-41.286, 174.776], { icon: makeIcon('home-icon') })
     .addTo(map)
-    .bindPopup(
-      '<div class="map-popup">' +
-        '<strong>NEST — Ellenbroek &amp; Youn Group</strong>' +
-        '<span>Victoria University of Wellington</span>' +
-        '<span class="home-label">Home base</span>' +
-      '</div>',
-      { maxWidth: 240 }
-    );
+    .bindPopup('<div class="map-popup"><strong>NEST — Ellenbroek &amp; Youn Group</strong><span>Victoria University of Wellington</span><span class="home-label">Home base</span></div>', { maxWidth: 240 });
 
-  /* ── Collaborator markers ── */
+  // Collaborator markers
   collaborators.forEach(function (c) {
     L.marker([c.lat, c.lng], { icon: makeIcon('collab-icon') })
       .addTo(map)
-      .bindPopup(
-        '<div class="map-popup">' +
-          '<strong>' + c.name + '</strong>' +
-          '<span>' + c.inst + '</span>' +
-        '</div>',
-        { maxWidth: 240 }
-      );
+      .bindPopup('<div class="map-popup"><strong>' + c.name + '</strong><span>' + c.inst + '</span></div>', { maxWidth: 240 });
   });
-
 })();
 </script>
 
