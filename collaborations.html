@@ -345,6 +345,41 @@
               <span>Lancaster University — United Kingdom</span>
             </div>
           </li>
+          <li>
+            <img src="images/Andrea Cesura.jpg" alt="Portrait of Dr Andrea Cesura" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Andrea Cesura</strong>
+              <span>Independent Consultant — Geneva, Switzerland</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Mark Gemkow.jpg" alt="Portrait of Dr Mark Gemkow" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Mark Gemkow</strong>
+              <span>Evotec — Hamburg, Germany</span>
+            </div>
+          </li>
+          <li>
+            <div class="collab-avatar-placeholder">EP</div>
+            <div class="collab-details">
+              <strong>Dr Eric Prinssen</strong>
+              <span>Roche — Basel, Germany</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Yah-se Abada.jpg" alt="Portrait of Dr Yah-se Abada" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Yah-se Abada</strong>
+              <span>University Pitié Salpêtrière — Paris, France</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Marco Riva.webp" alt="Portrait of Prof Marco Riva" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Marco Riva</strong>
+              <span>University of Milan — Milan, Italy</span>
+            </div>
+          </li>
         </ul>
       </div>
 
@@ -352,7 +387,7 @@
         <h2>Asia</h2>
         <ul>
           <li>
-            <div class="collab-avatar-placeholder">WW</div>
+            <img src="images/weiwen wang.png" alt="Portrait of Prof Weiwen Wang" class="collab-avatar" />
             <div class="collab-details">
               <strong>Prof Weiwen Wang</strong>
               <span>Chinese Academy of Science — Beijing, China</span>
@@ -367,6 +402,27 @@
           </li>
         </ul>
       </div>
+
+      <div class="collab-group">
+        <h2>North America</h2>
+        <ul>
+          <li>
+            <img src="images/Mark Geyer.jpg" alt="Portrait of Prof Mark Geyer" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Mark Geyer</strong>
+              <span>University of California San Diego — San Diego, USA</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Martin Paulus.jpg" alt="Portrait of Prof Martin Paulus" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Martin Paulus</strong>
+              <span>Laureate Institute for Brain Research — Tulsa, USA</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
 
     </div>
   </section>
@@ -413,9 +469,17 @@
     { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                lat: 51.820,   lng: 5.864,   img: 'Cyprien Guerrin.webp' },
     { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                lat: 52.090,   lng: 5.121,   img: 'Heidi Lesscher.jpg' },
     { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',              lat: 54.010,   lng: -2.788,  img: 'Sahir Hussain.jpg' },
+    { name: 'Dr Andrea Cesura',           inst: 'Independent Consultant',            lat: 46.204,   lng: 6.143,   img: 'Andrea Cesura.jpg' },
+    { name: 'Dr Mark Gemkow',             inst: 'Evotec',                            lat: 53.551,   lng: 9.993,   img: 'Mark Gemkow.jpg' },
+    { name: 'Dr Eric Prinssen',           inst: 'Roche',                             lat: 47.558,   lng: 7.590,   img: '' },
+    { name: 'Dr Yah-se Abada',            inst: 'University Pitié Salpêtrière',      lat: 48.838,   lng: 2.364,   img: 'Yah-se Abada.jpg' },
+    { name: 'Prof Marco Riva',            inst: 'University of Milan',               lat: 45.464,   lng: 9.190,   img: 'Marco Riva.webp' },
     // Asia
-    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',        lat: 39.960,   lng: 116.330, img: '' },
+    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',        lat: 39.960,   lng: 116.330, img: 'weiwen wang.png' },
     { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                  lat: 36.391,   lng: 139.071, img: 'Tomoaki Shirao.jpg' },
+    // North America
+    { name: 'Prof Mark Geyer',            inst: 'University of California San Diego', lat: 32.880,  lng: -117.236, img: 'Mark Geyer.jpg' },
+    { name: 'Prof Martin Paulus',         inst: 'Laureate Institute for Brain Research', lat: 36.108, lng: -95.918, img: 'Martin Paulus.jpg' },
   ];
 
   var map = L.map('collab-map', {
