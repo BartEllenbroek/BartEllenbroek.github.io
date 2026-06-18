@@ -47,7 +47,37 @@
   .leaflet-popup-content { margin: 0; padding: 0; }
   .map-popup {
     padding: 0.85rem 1.1rem;
-    min-width: 180px;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .map-popup__img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--hairline, #b7ab90);
+    filter: grayscale(0.15) contrast(1.02);
+    flex-shrink: 0;
+  }
+  .map-popup__placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--hairline, #b7ab90);
+    background-color: var(--paper-3, #ddd4c0);
+    color: var(--bistre, #6b5640);
+    display: grid;
+    place-items: center;
+    font-family: var(--display), serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .map-popup__info {
+    display: flex;
+    flex-direction: column;
   }
   .map-popup strong {
     display: block;
@@ -55,8 +85,9 @@
     font-weight: 600;
     color: #1a1612;
     margin-bottom: 0.2rem;
+    line-height: 1.25;
   }
-  .map-popup span { font-size: 0.82rem; color: #5a5040; }
+  .map-popup span { font-size: 0.82rem; color: #5a5040; line-height: 1.3; }
   .map-popup .home-label {
     display: inline-block;
     margin-top: 0.35rem;
@@ -97,14 +128,43 @@
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
   }
-  .collab-group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+  .collab-group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
   .collab-group li {
-    display: flex; flex-wrap: wrap;
-    column-gap: 0.6rem; align-items: baseline;
-    font-size: 0.95rem; line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .collab-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--hairline, #b7ab90);
+    filter: grayscale(0.15) contrast(1.02);
+    flex-shrink: 0;
+  }
+  .collab-avatar-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--hairline, #b7ab90);
+    background-color: var(--paper-3, #ddd4c0);
+    color: var(--bistre, #6b5640);
+    display: grid;
+    place-items: center;
+    font-family: var(--display), serif;
+    font-weight: 500;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .collab-details {
+    display: flex;
+    flex-direction: column;
   }
   .collab-group li strong { font-weight: 600; color: var(--ink, #1a1612); }
-  .collab-group li span { color: var(--ink-soft, #5a5040); font-size: 0.88rem; }
+  .collab-group li span { color: var(--ink-soft, #5a5040); font-size: 0.85rem; }
 </style>
 </head>
 <body>
@@ -154,43 +214,157 @@
       <div class="collab-group">
         <h2>Aotearoa New Zealand</h2>
         <ul>
-          <li><strong>Dr Penny Truman</strong><span>Massey University — Wellington</span></li>
-          <li><strong>Prof Paul Teesdale-Spittle</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Rob Keyzers</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Darren Day</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Lifeng Peng</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Burt Hatch</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Kate Witt</strong><span>Victoria University of Wellington</span></li>
-          <li><strong>Dr Anne Macaskill</strong><span>Victoria University of Wellington</span></li>
+          <li>
+            <img src="images/penny truman.jpg" alt="Portrait of Dr Penny Truman" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Penny Truman</strong>
+              <span>Massey University — Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Paul Teesdal Spittle.jpg" alt="Portrait of Prof Paul Teesdale-Spittle" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Paul Teesdale-Spittle</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Rob Keyzers.jpg" alt="Portrait of Dr Rob Keyzers" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Rob Keyzers</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Darren Day.jpg" alt="Portrait of Dr Darren Day" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Darren Day</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/lifeng peng.jpg" alt="Portrait of Dr Lifeng Peng" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Lifeng Peng</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/burt hatch.jpg" alt="Portrait of Dr Burt Hatch" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Burt Hatch</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/kate witt.jpg" alt="Portrait of Dr Kate Witt" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Kate Witt</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/anne macaskill.jpg" alt="Portrait of Dr Anne Macaskill" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Anne Macaskill</strong>
+              <span>Victoria University of Wellington</span>
+            </div>
+          </li>
         </ul>
       </div>
 
       <div class="collab-group">
         <h2>Australia</h2>
         <ul>
-          <li><strong>Dr Bryony Thorne</strong><span>University of Tasmania — Hobart</span></li>
-          <li><strong>Dr Diana Atigari</strong><span>University of Sydney</span></li>
-          <li><strong>Prof Don Wlodkowic</strong><span>RMIT — Melbourne</span></li>
-          <li><strong>Prof Andrew Barron</strong><span>Macquarie University — Sydney</span></li>
+          <li>
+            <img src="images/Bryony Thorne.jpg" alt="Portrait of Dr Bryony Thorne" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Bryony Thorne</strong>
+              <span>University of Tasmania — Hobart</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Diana Atigari.jpg" alt="Portrait of Dr Diana Atigari" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Diana Atigari</strong>
+              <span>University of Sydney</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Don Wlodkowic.jpg" alt="Portrait of Prof Don Wlodkowic" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Don Wlodkowic</strong>
+              <span>RMIT — Melbourne</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Andrew Barron.png" alt="Portrait of Prof Andrew Barron" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Andrew Barron</strong>
+              <span>Macquarie University — Sydney</span>
+            </div>
+          </li>
         </ul>
       </div>
 
       <div class="collab-group">
         <h2>Europe</h2>
         <ul>
-          <li><strong>Prof Aleksander Mathe</strong><span>Karolinska Institute — Stockholm, Sweden</span></li>
-          <li><strong>Prof Iris Sommer</strong><span>University of Groningen — the Netherlands</span></li>
-          <li><strong>Dr Cyprien Guerrin</strong><span>Radboud University — Nijmegen, the Netherlands</span></li>
-          <li><strong>Dr Heidi Lesscher</strong><span>Utrecht University — the Netherlands</span></li>
-          <li><strong>Dr Sahir Hussain</strong><span>Lancaster University — United Kingdom</span></li>
+          <li>
+            <img src="images/Aleksander Mathe.jpg" alt="Portrait of Prof Aleksander Mathe" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Aleksander Mathe</strong>
+              <span>Karolinska Institute — Stockholm, Sweden</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Iris Sommer.jpg" alt="Portrait of Prof Iris Sommer" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Iris Sommer</strong>
+              <span>University of Groningen — the Netherlands</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Cyprien Guerrin.webp" alt="Portrait of Dr Cyprien Guerrin" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Cyprien Guerrin</strong>
+              <span>Radboud University — Nijmegen, the Netherlands</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Heidi Lesscher.jpg" alt="Portrait of Dr Heidi Lesscher" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Heidi Lesscher</strong>
+              <span>Utrecht University — the Netherlands</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Sahir Hussain.jpg" alt="Portrait of Dr Sahir Hussain" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Dr Sahir Hussain</strong>
+              <span>Lancaster University — United Kingdom</span>
+            </div>
+          </li>
         </ul>
       </div>
 
       <div class="collab-group">
         <h2>Asia</h2>
         <ul>
-          <li><strong>Prof Weiwen Wang</strong><span>Chinese Academy of Science — Beijing, China</span></li>
-          <li><strong>Prof Tomoaki Shirao</strong><span>Gunma University — Maebashi, Japan</span></li>
+          <li>
+            <div class="collab-avatar-placeholder">WW</div>
+            <div class="collab-details">
+              <strong>Prof Weiwen Wang</strong>
+              <span>Chinese Academy of Science — Beijing, China</span>
+            </div>
+          </li>
+          <li>
+            <img src="images/Tomoaki Shirao.jpg" alt="Portrait of Prof Tomoaki Shirao" class="collab-avatar" />
+            <div class="collab-details">
+              <strong>Prof Tomoaki Shirao</strong>
+              <span>Gunma University — Maebashi, Japan</span>
+            </div>
+          </li>
         </ul>
       </div>
 
@@ -220,28 +394,28 @@
 (function () {
   var collaborators = [
     // New Zealand
-    { name: 'Dr Penny Truman',            inst: 'Massey University',                 lat: -41.290,  lng: 174.779 },
-    { name: 'Prof Paul Teesdale-Spittle', inst: 'Victoria University of Wellington', lat: -41.292,  lng: 174.768 },
-    { name: 'Dr Rob Keyzers',             inst: 'Victoria University of Wellington', lat: -41.294,  lng: 174.770 },
-    { name: 'Dr Darren Day',              inst: 'Victoria University of Wellington', lat: -41.296,  lng: 174.772 },
-    { name: 'Dr Lifeng Peng',             inst: 'Victoria University of Wellington', lat: -41.298,  lng: 174.774 },
-    { name: 'Dr Burt Hatch',              inst: 'Victoria University of Wellington', lat: -41.300,  lng: 174.776 },
-    { name: 'Dr Kate Witt',               inst: 'Victoria University of Wellington', lat: -41.302,  lng: 174.770 },
-    { name: 'Dr Anne Macaskill',          inst: 'Victoria University of Wellington', lat: -41.304,  lng: 174.768 },
+    { name: 'Dr Penny Truman',            inst: 'Massey University',                 lat: -41.290,  lng: 174.779, img: 'penny truman.jpg' },
+    { name: 'Prof Paul Teesdale-Spittle', inst: 'Victoria University of Wellington', lat: -41.292,  lng: 174.768, img: 'Paul Teesdal Spittle.jpg' },
+    { name: 'Dr Rob Keyzers',             inst: 'Victoria University of Wellington', lat: -41.294,  lng: 174.770, img: 'Rob Keyzers.jpg' },
+    { name: 'Dr Darren Day',              inst: 'Victoria University of Wellington', lat: -41.296,  lng: 174.772, img: 'Darren Day.jpg' },
+    { name: 'Dr Lifeng Peng',             inst: 'Victoria University of Wellington', lat: -41.298,  lng: 174.774, img: 'lifeng peng.jpg' },
+    { name: 'Dr Burt Hatch',              inst: 'Victoria University of Wellington', lat: -41.300,  lng: 174.776, img: 'burt hatch.jpg' },
+    { name: 'Dr Kate Witt',               inst: 'Victoria University of Wellington', lat: -41.302,  lng: 174.770, img: 'kate witt.jpg' },
+    { name: 'Dr Anne Macaskill',          inst: 'Victoria University of Wellington', lat: -41.304,  lng: 174.768, img: 'anne macaskill.jpg' },
     // Australia
-    { name: 'Dr Bryony Thorne',           inst: 'University of Tasmania',            lat: -42.880,  lng: 147.325 },
-    { name: 'Dr Diana Atigari',           inst: 'University of Sydney',              lat: -33.888,  lng: 151.187 },
-    { name: 'Prof Don Wlodkowic',         inst: 'RMIT University',                   lat: -37.810,  lng: 144.962 },
-    { name: 'Prof Andrew Barron',         inst: 'Macquarie University',              lat: -33.774,  lng: 151.113 },
+    { name: 'Dr Bryony Thorne',           inst: 'University of Tasmania',            lat: -42.880,  lng: 147.325, img: 'Bryony Thorne.jpg' },
+    { name: 'Dr Diana Atigari',           inst: 'University of Sydney',              lat: -33.888,  lng: 151.187, img: 'Diana Atigari.jpg' },
+    { name: 'Prof Don Wlodkowic',         inst: 'RMIT University',                   lat: -37.810,  lng: 144.962, img: 'Don Wlodkowic.jpg' },
+    { name: 'Prof Andrew Barron',         inst: 'Macquarie University',              lat: -33.774,  lng: 151.113, img: 'Andrew Barron.png' },
     // Europe
-    { name: 'Prof Aleksander Mathe',      inst: 'Karolinska Institute',              lat: 59.350,   lng: 18.025 },
-    { name: 'Prof Iris Sommer',           inst: 'University of Groningen',           lat: 53.220,   lng: 6.568 },
-    { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                lat: 51.820,   lng: 5.864 },
-    { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                lat: 52.090,   lng: 5.121 },
-    { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',              lat: 54.010,   lng: -2.788 },
+    { name: 'Prof Aleksander Mathe',      inst: 'Karolinska Institute',              lat: 59.350,   lng: 18.025,  img: 'Aleksander Mathe.jpg' },
+    { name: 'Prof Iris Sommer',           inst: 'University of Groningen',           lat: 53.220,   lng: 6.568,   img: 'Iris Sommer.jpg' },
+    { name: 'Dr Cyprien Guerrin',         inst: 'Radboud University',                lat: 51.820,   lng: 5.864,   img: 'Cyprien Guerrin.webp' },
+    { name: 'Dr Heidi Lesscher',          inst: 'Utrecht University',                lat: 52.090,   lng: 5.121,   img: 'Heidi Lesscher.jpg' },
+    { name: 'Dr Sahir Hussain',           inst: 'Lancaster University',              lat: 54.010,   lng: -2.788,  img: 'Sahir Hussain.jpg' },
     // Asia
-    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',        lat: 39.960,   lng: 116.330 },
-    { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                  lat: 36.391,   lng: 139.071 },
+    { name: 'Prof Weiwen Wang',           inst: 'Chinese Academy of Science',        lat: 39.960,   lng: 116.330, img: '' },
+    { name: 'Prof Tomoaki Shirao',        inst: 'Gunma University',                  lat: 36.391,   lng: 139.071, img: 'Tomoaki Shirao.jpg' },
   ];
 
   var map = L.map('collab-map', {
@@ -273,13 +447,41 @@
   // Home marker
   L.marker([-41.286, 174.776], { icon: makeIcon('home-icon') })
     .addTo(map)
-    .bindPopup('<div class="map-popup"><strong>NEST — Ellenbroek &amp; Youn Group</strong><span>Victoria University of Wellington</span><span class="home-label">Home base</span></div>', { maxWidth: 240 });
+    .bindPopup(
+      '<div class="map-popup">' +
+        '<img src="images/NEST.jpg" class="map-popup__img" alt="NEST logo" />' +
+        '<div class="map-popup__info">' +
+          '<strong>NEST — Ellenbroek &amp; Youn Group</strong>' +
+          '<span>Victoria University of Wellington</span>' +
+          '<span class="home-label">Home base</span>' +
+        '</div>' +
+      '</div>',
+      { maxWidth: 240 }
+    );
 
   // Collaborator markers
   collaborators.forEach(function (c) {
+    var imgHtml = '';
+    if (c.img) {
+      imgHtml = '<img src="images/' + encodeURIComponent(c.img) + '" class="map-popup__img" alt="Portrait of ' + c.name + '" />';
+    } else {
+      // Get initials
+      var initials = c.name.split(' ').slice(-2).map(function(n) { return n[0]; }).join('');
+      imgHtml = '<div class="map-popup__placeholder">' + initials + '</div>';
+    }
+
     L.marker([c.lat, c.lng], { icon: makeIcon('collab-icon') })
       .addTo(map)
-      .bindPopup('<div class="map-popup"><strong>' + c.name + '</strong><span>' + c.inst + '</span></div>', { maxWidth: 240 });
+      .bindPopup(
+        '<div class="map-popup">' +
+          imgHtml +
+          '<div class="map-popup__info">' +
+            '<strong>' + c.name + '</strong>' +
+            '<span>' + c.inst + '</span>' +
+          '</div>' +
+        '</div>',
+        { maxWidth: 240 }
+      );
   });
 })();
 </script>
